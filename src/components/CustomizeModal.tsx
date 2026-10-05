@@ -16,8 +16,6 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
   onClose,
   onAddToCart,
 }) => {
-  if (!isOpen || !item) return null;
-
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string[]>>({});
   const [removedIngredients, setRemovedIngredients] = useState<string[]>([]);
@@ -91,6 +89,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
 
   // Calculate unit price and total price
   const { unitPrice, totalPrice } = useMemo(() => {
+    if (!item) return { unitPrice: 0, totalPrice: 0 };
     let price = item.price;
 
     item.optionGroups?.forEach((group) => {
@@ -107,6 +106,8 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
       totalPrice: price * quantity,
     };
   }, [item, selectedOptions, quantity]);
+
+  if (!isOpen || !item) return null;
 
   // Validate required options before adding to cart
   const handleConfirmAddToCart = () => {

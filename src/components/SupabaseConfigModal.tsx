@@ -11,14 +11,14 @@ export const SupabaseConfigModal: React.FC<SupabaseConfigModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  if (!isOpen) return null;
-
   const currentConfig = getSupabaseConfig();
   const [url, setUrl] = useState(currentConfig.url);
   const [anonKey, setAnonKey] = useState(currentConfig.anonKey);
   const [statusMessage, setStatusMessage] = useState<{ text: string; isError: boolean } | null>(null);
   const [copiedSql, setCopiedSql] = useState(false);
   const [testing, setTesting] = useState(false);
+
+  if (!isOpen) return null;
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();

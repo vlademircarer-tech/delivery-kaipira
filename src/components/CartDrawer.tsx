@@ -35,10 +35,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onApplyCoupon,
   discountAmount,
 }) => {
-  if (!isOpen) return null;
-
   const [inputCoupon, setInputCoupon] = useState('');
   const [couponFeedback, setCouponFeedback] = useState<{ text: string; isError: boolean } | null>(null);
+
+  if (!isOpen) return null;
 
   const subtotal = items.reduce((sum, item) => sum + item.totalPrice, 0);
   const deliveryFee = deliveryType === 'delivery' ? selectedNeighborhood.fee : 0;

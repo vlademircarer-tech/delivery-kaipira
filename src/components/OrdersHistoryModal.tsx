@@ -22,15 +22,15 @@ export const OrdersHistoryModal: React.FC<OrdersHistoryModalProps> = ({
     <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/70 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6">
       <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden my-6 max-h-[92vh] flex flex-col">
         {/* Header */}
-        <div className="p-5 bg-stone-900 text-white flex items-center justify-between">
+        <div className="p-5 bg-orange-600 text-white flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <Package className="w-5 h-5 text-amber-400" />
+            <Package className="w-5 h-5 text-orange-200" />
             <h2 className="font-display text-xl font-bold">Meus Pedidos</h2>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 text-stone-400 hover:text-white rounded-lg transition-colors cursor-pointer"
+            className="p-2 text-orange-200 hover:text-white rounded-lg transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -55,7 +55,7 @@ export const OrdersHistoryModal: React.FC<OrdersHistoryModalProps> = ({
                 onClick={() => {
                   onSelectOrder(order);
                 }}
-                className="bg-stone-50 hover:bg-amber-50/50 border border-stone-200 hover:border-amber-300 rounded-xl p-4 transition-all cursor-pointer flex items-center justify-between gap-3 shadow-xs"
+                className="bg-stone-50 hover:bg-orange-50/50 border border-stone-200 hover:border-orange-300 rounded-xl p-4 transition-all cursor-pointer flex items-center justify-between gap-3 shadow-xs"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -86,13 +86,13 @@ export const OrdersHistoryModal: React.FC<OrdersHistoryModalProps> = ({
                       })}
                     </span>
                     <span>·</span>
-                    <span className="font-bold text-amber-950 tabular-nums">
+                    <span className="font-bold text-orange-600 tabular-nums">
                       {formatCurrency(order.total)}
                     </span>
                   </div>
                 </div>
 
-                <div className="p-2 text-stone-400 hover:text-amber-800">
+                <div className="p-2 text-stone-400 hover:text-orange-600">
                   <ChevronRight className="w-5 h-5" />
                 </div>
               </div>

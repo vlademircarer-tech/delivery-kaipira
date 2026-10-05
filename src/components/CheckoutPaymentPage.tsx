@@ -58,8 +58,6 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
   discountAmount,
   onOrderCreated,
 }) => {
-  if (!isOpen) return null;
-
   // Customer registration state (Cloud only, no localstorage)
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('19');
@@ -109,6 +107,8 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
   useEffect(() => {
     setSplitAmount1(Math.round(total / 2));
   }, [total]);
+
+  if (!isOpen) return null;
 
   // Handle CEP automatic search
   const handleCepChange = async (val: string) => {

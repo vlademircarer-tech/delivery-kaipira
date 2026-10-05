@@ -221,89 +221,105 @@ export default function App() {
       )}
 
       {/* Modals & Drawers */}
-      <CustomizeModal
-        item={customizingItem}
-        isOpen={isCustomizeOpen}
-        onClose={() => {
-          setIsCustomizeOpen(false);
-          setCustomizingItem(null);
-        }}
-        onAddToCart={handleAddToCart}
-      />
+      {isCustomizeOpen && customizingItem && (
+        <CustomizeModal
+          item={customizingItem}
+          isOpen={isCustomizeOpen}
+          onClose={() => {
+            setIsCustomizeOpen(false);
+            setCustomizingItem(null);
+          }}
+          onAddToCart={handleAddToCart}
+        />
+      )}
 
       {/* Drawer renamed to Seu Pedido */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        deliveryType={deliveryType}
-        onSetDeliveryType={setDeliveryType}
-        selectedNeighborhood={selectedNeighborhood}
-        onSelectNeighborhood={setSelectedNeighborhood}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemoveItem={handleRemoveItem}
-        onProceedToCheckout={handleProceedToCheckout}
-        couponCode={couponCode}
-        onApplyCoupon={handleApplyCoupon}
-        discountAmount={discountAmount}
-      />
+      {isCartOpen && (
+        <CartDrawer
+          isOpen={isCartOpen}
+          onClose={() => setIsCartOpen(false)}
+          items={cartItems}
+          deliveryType={deliveryType}
+          onSetDeliveryType={setDeliveryType}
+          selectedNeighborhood={selectedNeighborhood}
+          onSelectNeighborhood={setSelectedNeighborhood}
+          onUpdateQuantity={handleUpdateQuantity}
+          onRemoveItem={handleRemoveItem}
+          onProceedToCheckout={handleProceedToCheckout}
+          couponCode={couponCode}
+          onApplyCoupon={handleApplyCoupon}
+          discountAmount={discountAmount}
+        />
+      )}
 
       {/* Página de Pagamentos & Cadastro com Busca CEP */}
-      <CheckoutPaymentPage
-        isOpen={isCheckoutOpen}
-        onClose={() => setIsCheckoutOpen(false)}
-        onBackToCart={() => {
-          setIsCheckoutOpen(false);
-          setIsCartOpen(true);
-        }}
-        items={cartItems}
-        deliveryType={deliveryType}
-        onSetDeliveryType={setDeliveryType}
-        selectedNeighborhood={selectedNeighborhood}
-        onSelectNeighborhood={setSelectedNeighborhood}
-        couponCode={couponCode}
-        discountAmount={discountAmount}
-        onOrderCreated={handleOrderCreated}
-      />
+      {isCheckoutOpen && (
+        <CheckoutPaymentPage
+          isOpen={isCheckoutOpen}
+          onClose={() => setIsCheckoutOpen(false)}
+          onBackToCart={() => {
+            setIsCheckoutOpen(false);
+            setIsCartOpen(true);
+          }}
+          items={cartItems}
+          deliveryType={deliveryType}
+          onSetDeliveryType={setDeliveryType}
+          selectedNeighborhood={selectedNeighborhood}
+          onSelectNeighborhood={setSelectedNeighborhood}
+          couponCode={couponCode}
+          discountAmount={discountAmount}
+          onOrderCreated={handleOrderCreated}
+        />
+      )}
 
       {/* Confirmação e Acompanhamento de Pedido */}
-      <OrderConfirmationModal
-        order={activeTrackingOrder}
-        isOpen={isConfirmationOpen}
-        onClose={() => {
-          setIsConfirmationOpen(false);
-          setActiveTrackingOrder(null);
-        }}
-        onUpdateOrderStatus={handleUpdateOrderStatus}
-      />
+      {isConfirmationOpen && activeTrackingOrder && (
+        <OrderConfirmationModal
+          order={activeTrackingOrder}
+          isOpen={isConfirmationOpen}
+          onClose={() => {
+            setIsConfirmationOpen(false);
+            setActiveTrackingOrder(null);
+          }}
+          onUpdateOrderStatus={handleUpdateOrderStatus}
+        />
+      )}
 
       {/* Painel Administrativo com Senha dndigqol e usuário admin */}
-      <AdminPanelModal
-        isOpen={isAdminOpen}
-        onClose={() => setIsAdminOpen(false)}
-        onRefreshOrders={() => fetchCloudOrders().then((r) => setOrders(r.orders))}
-      />
+      {isAdminOpen && (
+        <AdminPanelModal
+          isOpen={isAdminOpen}
+          onClose={() => setIsAdminOpen(false)}
+          onRefreshOrders={() => fetchCloudOrders().then((r) => setOrders(r.orders))}
+        />
+      )}
 
-      <SupabaseConfigModal
-        isOpen={isSupabaseModalOpen}
-        onClose={() => setIsSupabaseModalOpen(false)}
-      />
+      {isSupabaseModalOpen && (
+        <SupabaseConfigModal
+          isOpen={isSupabaseModalOpen}
+          onClose={() => setIsSupabaseModalOpen(false)}
+        />
+      )}
 
-      <RestaurantInfoModal
-        isOpen={isRestaurantInfoOpen}
-        onClose={() => setIsRestaurantInfoOpen(false)}
-      />
+      {isRestaurantInfoOpen && (
+        <RestaurantInfoModal
+          isOpen={isRestaurantInfoOpen}
+          onClose={() => setIsRestaurantInfoOpen(false)}
+        />
+      )}
 
-      <OrdersHistoryModal
-        isOpen={isOrdersHistoryOpen}
-        onClose={() => setIsOrdersHistoryOpen(false)}
-        orders={orders}
-        onSelectOrder={(order) => {
-          setActiveTrackingOrder(order);
-          setIsOrdersHistoryOpen(false);
-          setIsConfirmationOpen(true);
-        }}
-      />
+      {isOrdersHistoryOpen && (
+        <OrdersHistoryModal
+          isOpen={isOrdersHistoryOpen}
+          onClose={() => setIsOrdersHistoryOpen(false)}
+          orders={orders}
+          onSelectOrder={(order) => {
+            setActiveTrackingOrder(order);
+            setIsOrdersHistoryOpen(false);
+            setIsConfirmationOpen(true);
+          }}
+        />
+      )}
     </div>
   );
 }

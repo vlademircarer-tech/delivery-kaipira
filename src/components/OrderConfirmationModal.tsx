@@ -18,28 +18,32 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
   onClose,
   onUpdateOrderStatus,
 }) => {
-  if (!isOpen || !order) return null;
-
   const [copiedPix, setCopiedPix] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState<OrderStatus>(order.status);
+  const [currentStatus, setCurrentStatus] = useState<OrderStatus>(order?.status || 'received');
 
   // Trigger celebration confetti once modal opens
   useEffect(() => {
-    try {
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#b45309', '#15803d', '#f59e0b', '#78350f'],
-      });
-    } catch {
-      // Ignored if canvas-confetti is not available
+    if (isOpen && order) {
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#ea580c', '#c2410c', '#fb923c', '#9a3412'],
+        });
+      } catch {
+        // Ignored if canvas-confetti is not available
+      }
     }
-  }, [order.id]);
+  }, [isOpen, order?.id]);
 
   useEffect(() => {
-    setCurrentStatus(order.status);
-  }, [order.status]);
+    if (order?.status) {
+      setCurrentStatus(order.status);
+    }
+  }, [order?.status]);
+
+  if (!isOpen || !order) return null;
 
   const steps: { key: OrderStatus; label: string; icon: React.ReactNode; desc: string }[] = [
     {

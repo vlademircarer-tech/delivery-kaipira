@@ -34,8 +34,6 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
   onClose,
   onRefreshOrders,
 }) => {
-  if (!isOpen) return null;
-
   // Session-only admin authentication
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
@@ -59,10 +57,12 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isOpen && isAuthenticated) {
       loadOrders();
     }
-  }, [isAuthenticated]);
+  }, [isOpen, isAuthenticated]);
+
+  if (!isOpen) return null;
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
