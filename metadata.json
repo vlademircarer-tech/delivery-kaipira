@@ -2,5 +2,7 @@
   "name": "Restaurante Kaipira Piracicaba - Delivery",
   "description": "App de delivery oficial do Restaurante Kaipira em Piracicaba. Pratos tradicionais caipiras, peixes na brasa, cuscuz piracicabano e marmitas com cálculo de entrega e pagamento via PIX ou cartão.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
