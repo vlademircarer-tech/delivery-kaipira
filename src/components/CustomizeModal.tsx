@@ -167,7 +167,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
         {/* Scrollable Content Body */}
         <div className="p-6 overflow-y-auto space-y-6 flex-1">
           <div>
-            <span className="text-[11px] font-semibold text-amber-800 uppercase tracking-widest">
+            <span className="text-[11px] font-bold text-orange-600 uppercase tracking-widest">
               Personalização de Ingredientes
             </span>
             <h2 className="font-display text-2xl font-bold text-stone-900 mt-1">
@@ -176,7 +176,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
             <p className="text-xs sm:text-sm text-stone-600 mt-1.5 leading-relaxed">
               {item.description}
             </p>
-            <div className="mt-2 text-base font-bold text-amber-900 tabular-nums">
+            <div className="mt-2 text-base font-extrabold text-orange-950 tabular-nums">
               Preço base: {formatCurrency(item.price)}
             </div>
           </div>
@@ -203,7 +203,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
                         </p>
                       </div>
                       {group.required && currentSelected.length > 0 && (
-                        <span className="text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
+                        <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
                           Selecionado
                         </span>
                       )}
@@ -225,7 +225,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
                             }}
                             className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
                               isSelected
-                                ? 'border-amber-800 bg-amber-50/50 shadow-xs'
+                                ? 'border-orange-600 bg-orange-50/60 shadow-xs'
                                 : 'border-stone-200 hover:border-stone-300 bg-white'
                             }`}
                           >
@@ -235,7 +235,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
                                   group.type === 'single' ? 'full' : 'md'
                                 } border flex items-center justify-center transition-colors ${
                                   isSelected
-                                    ? 'bg-amber-800 border-amber-800 text-white'
+                                    ? 'bg-orange-600 border-orange-600 text-white'
                                     : 'border-stone-300 bg-white'
                                 }`}
                               >
@@ -246,7 +246,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
                               </span>
                             </div>
 
-                            <span className="text-xs font-semibold text-stone-600 tabular-nums">
+                            <span className="text-xs font-bold text-stone-700 tabular-nums">
                               {opt.price > 0 ? `+ ${formatCurrency(opt.price)}` : 'Incluso'}
                             </span>
                           </label>
@@ -313,7 +313,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Digite aqui sua observação..."
-              className="w-full p-3 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-700/20 focus:border-amber-700 transition-all placeholder:text-stone-400"
+              className="w-full p-3 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition-all placeholder:text-stone-400"
             />
           </div>
 
@@ -353,10 +353,10 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
           {/* Add CTA */}
           <button
             onClick={handleConfirmAddToCart}
-            className="flex-1 py-3 px-5 bg-amber-800 hover:bg-amber-900 active:scale-98 text-white font-semibold text-sm rounded-xl transition-all shadow-xs flex items-center justify-between cursor-pointer"
+            className="flex-1 py-3 px-5 bg-orange-600 hover:bg-orange-700 active:scale-98 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-between cursor-pointer"
           >
             <span>Adicionar ao Pedido</span>
-            <span className="tabular-nums font-bold">
+            <span className="tabular-nums font-extrabold">
               {formatCurrency(totalPrice)}
             </span>
           </button>

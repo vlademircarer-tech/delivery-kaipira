@@ -55,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="pt-2">
               <a
                 href={`tel:${RESTAURANT_INFO.phone.replace(/\D/g, '')}`}
-                className="inline-flex items-center gap-1.5 font-semibold text-amber-400 hover:text-amber-300"
+                className="inline-flex items-center gap-1.5 font-bold text-orange-400 hover:text-orange-300"
               >
                 <Phone className="w-3.5 h-3.5" />
                 <span>{RESTAURANT_INFO.phone}</span>
@@ -71,7 +71,7 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="space-y-1 text-stone-400">
               <p>Segunda a Sexta: 11:00 às 14:00</p>
               <p>Sábado: 11:00 às 14:00</p>
-              <p className="text-amber-400 font-semibold">Domingo: Fechado</p>
+              <p className="text-orange-400 font-bold">Domingo: Fechado</p>
             </div>
             <button
               onClick={onOpenRestaurantInfo}

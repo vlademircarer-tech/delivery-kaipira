@@ -114,8 +114,8 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
         {/* Top Header */}
         <div className="p-4 sm:p-5 bg-stone-900 text-white flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-600/30 border border-amber-500/40 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-amber-400" />
+            <div className="w-10 h-10 rounded-xl bg-orange-600/30 border border-orange-500/40 flex items-center justify-center">
+              <Lock className="w-5 h-5 text-orange-400" />
             </div>
             <div>
               <h2 className="font-display text-xl font-bold">
@@ -149,7 +149,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
         {!isAuthenticated ? (
           /* Login Form */
           <div className="p-8 sm:p-12 flex flex-col items-center justify-center text-center flex-1 max-w-md mx-auto w-full">
-            <div className="w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mb-4 text-amber-900">
+            <div className="w-16 h-16 rounded-2xl bg-orange-100 flex items-center justify-center mb-4 text-orange-900">
               <Lock className="w-8 h-8" />
             </div>
 
@@ -171,7 +171,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                   placeholder="admin"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-amber-700"
+                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-orange-600"
                 />
               </div>
 
@@ -185,7 +185,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-amber-700"
+                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-orange-600"
                 />
               </div>
 
@@ -198,7 +198,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-3 bg-amber-800 hover:bg-amber-900 text-white font-bold text-xs sm:text-sm rounded-xl transition-colors shadow-md cursor-pointer"
+                className="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs sm:text-sm rounded-xl transition-colors shadow-md cursor-pointer"
               >
                 Entrar no Painel Administrativo
               </button>
@@ -226,20 +226,20 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                 </span>
               </div>
 
-              <div className="bg-amber-50 p-4 rounded-xl border border-amber-200">
-                <span className="text-[11px] font-semibold text-amber-800 uppercase tracking-wider block">
+              <div className="bg-orange-50 p-4 rounded-xl border border-orange-200">
+                <span className="text-[11px] font-bold text-orange-800 uppercase tracking-wider block">
                   Faturamento Total
                 </span>
-                <span className="text-2xl font-bold text-amber-950 tabular-nums font-display">
+                <span className="text-2xl font-extrabold text-orange-950 tabular-nums font-display">
                   {formatCurrency(totalRevenue)}
                 </span>
               </div>
 
-              <div className="bg-orange-50 p-4 rounded-xl border border-orange-200">
-                <span className="text-[11px] font-semibold text-orange-800 uppercase tracking-wider block">
+              <div className="bg-amber-50 p-4 rounded-xl border border-amber-200">
+                <span className="text-[11px] font-semibold text-amber-800 uppercase tracking-wider block">
                   Cozinha / Em Aberto
                 </span>
-                <span className="text-2xl font-bold text-orange-950 tabular-nums">
+                <span className="text-2xl font-bold text-amber-950 tabular-nums">
                   {pendingCount}
                 </span>
               </div>
@@ -274,7 +274,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                     onClick={() => setStatusFilter(tab.id)}
                     className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors cursor-pointer whitespace-nowrap ${
                       statusFilter === tab.id
-                        ? 'bg-white text-stone-900 shadow-xs'
+                        ? 'bg-orange-600 text-white shadow-xs'
                         : 'text-stone-600 hover:text-stone-900'
                     }`}
                   >
@@ -290,7 +290,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                   placeholder="Buscar cliente, número..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:border-amber-700"
+                  className="w-full pl-9 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:border-orange-600"
                 />
               </div>
             </div>

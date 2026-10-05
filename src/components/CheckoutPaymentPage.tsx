@@ -352,9 +352,9 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
               <button
                 type="button"
                 onClick={() => onSetDeliveryType('delivery')}
-                className={`flex items-center justify-center gap-2 py-2.5 px-3 text-xs sm:text-sm font-semibold rounded-lg transition-all cursor-pointer ${
+                className={`flex items-center justify-center gap-2 py-2.5 px-3 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
                   deliveryType === 'delivery'
-                    ? 'bg-amber-800 text-white shadow-xs'
+                    ? 'bg-orange-600 text-white shadow-xs'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -364,9 +364,9 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
               <button
                 type="button"
                 onClick={() => onSetDeliveryType('pickup')}
-                className={`flex items-center justify-center gap-2 py-2.5 px-3 text-xs sm:text-sm font-semibold rounded-lg transition-all cursor-pointer ${
+                className={`flex items-center justify-center gap-2 py-2.5 px-3 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
                   deliveryType === 'pickup'
-                    ? 'bg-amber-800 text-white shadow-xs'
+                    ? 'bg-orange-600 text-white shadow-xs'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -382,7 +382,7 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
               <h3 className="text-xs font-bold text-stone-900 uppercase tracking-wider">
                 2. Cadastro do Cliente & Endereço
               </h3>
-              <span className="text-[11px] text-emerald-700 font-medium">
+              <span className="text-[11px] text-emerald-700 font-semibold">
                 Salvo diretamente na Nuvem
               </span>
             </div>
@@ -398,7 +398,7 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                   placeholder="Seu nome"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-amber-700"
+                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-orange-600"
                 />
               </div>
 
@@ -412,7 +412,7 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                   placeholder="(19) 99999-9999"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-amber-700"
+                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-orange-600"
                 />
               </div>
             </div>
@@ -432,14 +432,14 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                         placeholder="Ex: 13425-060"
                         value={cep}
                         onChange={(e) => handleCepChange(e.target.value)}
-                        className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-amber-700 font-mono"
+                        className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-orange-600 font-mono"
                       />
                     </div>
                     <button
                       type="button"
                       onClick={() => triggerCepLookup()}
                       disabled={isSearchingCep}
-                      className="px-4 py-2.5 bg-stone-800 hover:bg-stone-900 disabled:opacity-50 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+                      className="px-4 py-2.5 bg-orange-600 hover:bg-orange-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
                     >
                       {isSearchingCep ? (
                         <>
@@ -482,7 +482,7 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                       placeholder="Ex: Av. Pompéia ou Rua Luiz Razera"
                       value={street}
                       onChange={(e) => setStreet(e.target.value)}
-                      className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-amber-700"
+                      className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-orange-600"
                     />
                   </div>
                   <div>
@@ -495,7 +495,7 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                       placeholder="1018"
                       value={number}
                       onChange={(e) => setNumber(e.target.value)}
-                      className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-amber-700"
+                      className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-orange-600"
                     />
                   </div>
                 </div>
@@ -510,7 +510,7 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                       placeholder="Ex: Apto 12"
                       value={complement}
                       onChange={(e) => setComplement(e.target.value)}
-                      className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-amber-700"
+                      className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-orange-600"
                     />
                   </div>
                   <div>
@@ -523,7 +523,7 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                         const found = PIRACICABA_NEIGHBORHOODS.find((n) => n.name === e.target.value);
                         if (found) onSelectNeighborhood(found);
                       }}
-                      className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:border-amber-700"
+                      className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:border-orange-600"
                     >
                       {PIRACICABA_NEIGHBORHOODS.map((n) => (
                         <option key={n.name} value={n.name}>
@@ -543,7 +543,7 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                     placeholder="Ex: Próximo à padaria / portão branco"
                     value={reference}
                     onChange={(e) => setReference(e.target.value)}
-                    className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-amber-700"
+                    className="w-full p-2.5 bg-white border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-orange-600"
                   />
                 </div>
               </div>
@@ -579,11 +579,11 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                 onClick={() => setPaymentMethod('credit_card')}
                 className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all cursor-pointer ${
                   paymentMethod === 'credit_card'
-                    ? 'border-amber-700 bg-amber-50 text-amber-900 font-bold shadow-xs'
+                    ? 'border-orange-600 bg-orange-50 text-orange-950 font-bold shadow-xs'
                     : 'border-stone-200 hover:border-stone-300 text-stone-600'
                 }`}
               >
-                <CreditCard className="w-5 h-5 mb-1 text-amber-700" />
+                <CreditCard className="w-5 h-5 mb-1 text-orange-600" />
                 <span className="text-xs">Crédito</span>
               </button>
 
@@ -592,11 +592,11 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
                 onClick={() => setPaymentMethod('debit_card')}
                 className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all cursor-pointer ${
                   paymentMethod === 'debit_card'
-                    ? 'border-amber-700 bg-amber-50 text-amber-900 font-bold shadow-xs'
+                    ? 'border-orange-600 bg-orange-50 text-orange-950 font-bold shadow-xs'
                     : 'border-stone-200 hover:border-stone-300 text-stone-600'
                 }`}
               >
-                <CreditCard className="w-5 h-5 mb-1 text-amber-800" />
+                <CreditCard className="w-5 h-5 mb-1 text-orange-600" />
                 <span className="text-xs">Débito / VR</span>
               </button>
 
@@ -927,7 +927,7 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
             )}
             <div className="flex justify-between text-sm font-bold text-stone-900 pt-2 border-t border-stone-200">
               <span>Total Final</span>
-              <span className="text-amber-950 font-display text-lg tabular-nums">
+              <span className="text-orange-950 font-display text-lg tabular-nums font-extrabold">
                 {formatCurrency(total)}
               </span>
             </div>
@@ -937,9 +937,9 @@ export const CheckoutPaymentPage: React.FC<CheckoutPaymentPageProps> = ({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 px-5 bg-amber-800 hover:bg-amber-900 active:scale-98 disabled:opacity-50 text-white font-bold text-sm sm:text-base rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-3.5 px-5 bg-orange-600 hover:bg-orange-700 active:scale-98 disabled:opacity-50 text-white font-bold text-sm sm:text-base rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
           >
-            <ShieldCheck className="w-5 h-5 text-amber-200" />
+            <ShieldCheck className="w-5 h-5 text-orange-200" />
             <span>
               {submitting
                 ? 'Gravando Pedido na Nuvem...'

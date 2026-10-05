@@ -9,18 +9,19 @@
   }
 }
 
-/* Custom smooth scrollbar */
+/* Custom smooth scrollbar with orange theme */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f0ec;
+  background: #f8f6f2;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d6d3cb;
+  background: #fb923c;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8b3a7;
+  background: #ea580c;
 }
+

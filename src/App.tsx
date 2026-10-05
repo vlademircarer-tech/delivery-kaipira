@@ -159,16 +159,19 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FBF9F5] text-stone-900 selection:bg-amber-800 selection:text-white">
-      {/* Top Navbar */}
+    <div className="min-h-screen flex flex-col bg-[#FBF9F5] text-stone-900 selection:bg-orange-600 selection:text-white">
+      {/* Top Navbar in iFood Orange Style */}
       <Navbar
         cartItemCount={cartCount}
         cartTotal={cartTotal}
+        selectedNeighborhood={selectedNeighborhood}
+        deliveryType={deliveryType}
         onOpenCart={() => setIsCartOpen(true)}
         onOpenRestaurantInfo={() => setIsRestaurantInfoOpen(true)}
         onOpenSupabaseConfig={() => setIsSupabaseModalOpen(true)}
         onOpenOrdersHistory={() => setIsOrdersHistoryOpen(true)}
         onOpenAdminPanel={() => setIsAdminOpen(true)}
+        onToggleDeliveryTypeOrNeighborhood={() => setIsCartOpen(true)}
         hasOrders={orders.length > 0}
       />
 
@@ -192,24 +195,24 @@ export default function App() {
         onOpenSupabaseConfig={() => setIsSupabaseModalOpen(true)}
       />
 
-      {/* Mobile Floating Bottom Bar: "Ver Seu Pedido" */}
+      {/* Mobile Floating Bottom Bar: "Ver Seu Pedido" in Vibrant Orange */}
       {cartCount > 0 && !isCartOpen && !isCheckoutOpen && !isConfirmationOpen && (
-        <div className="fixed bottom-0 inset-x-0 z-30 p-3 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-lg md:hidden">
+        <div className="fixed bottom-0 inset-x-0 z-30 p-3 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-xl md:hidden">
           <button
             onClick={() => setIsCartOpen(true)}
-            className="w-full py-3 px-4 bg-amber-800 hover:bg-amber-900 text-white rounded-xl font-semibold flex items-center justify-between shadow-md cursor-pointer"
+            className="w-full py-3.5 px-4 bg-orange-600 hover:bg-orange-700 active:scale-98 text-white rounded-xl font-bold flex items-center justify-between shadow-md cursor-pointer"
           >
             <div className="flex items-center gap-2">
               <div className="relative">
-                <ShoppingBag className="w-5 h-5 text-amber-200" />
-                <span className="absolute -top-1.5 -right-2 bg-red-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <ShoppingBag className="w-5 h-5 text-orange-200" />
+                <span className="absolute -top-1.5 -right-2 bg-red-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
                   {cartCount}
                 </span>
               </div>
               <span className="text-sm">Ver Seu Pedido</span>
             </div>
 
-            <div className="flex items-center gap-1.5 font-bold tabular-nums text-sm">
+            <div className="flex items-center gap-1.5 font-extrabold tabular-nums text-sm">
               <span>{formatCurrency(cartTotal)}</span>
               <ArrowRight className="w-4 h-4" />
             </div>

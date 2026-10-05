@@ -64,7 +64,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <span className="font-display text-xl font-bold text-stone-900">
                 Seu Pedido
               </span>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 tabular-nums">
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-orange-100 text-orange-800 tabular-nums">
                 {items.length} {items.length === 1 ? 'item' : 'itens'}
               </span>
             </div>
@@ -87,9 +87,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <button
                 type="button"
                 onClick={() => onSetDeliveryType('delivery')}
-                className={`flex items-center justify-center gap-2 py-2 px-3 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                className={`flex items-center justify-center gap-2 py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer ${
                   deliveryType === 'delivery'
-                    ? 'bg-amber-800 text-white shadow-xs'
+                    ? 'bg-orange-600 text-white shadow-xs'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -99,9 +99,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <button
                 type="button"
                 onClick={() => onSetDeliveryType('pickup')}
-                className={`flex items-center justify-center gap-2 py-2 px-3 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                className={`flex items-center justify-center gap-2 py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer ${
                   deliveryType === 'pickup'
-                    ? 'bg-amber-800 text-white shadow-xs'
+                    ? 'bg-orange-600 text-white shadow-xs'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -117,7 +117,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   <label className="text-xs font-medium text-stone-700">
                     Bairro de Piracicaba para entrega:
                   </label>
-                  <span className="text-xs font-semibold text-amber-800 tabular-nums">
+                  <span className="text-xs font-bold text-orange-600 tabular-nums">
                     Taxa: {formatCurrency(selectedNeighborhood.fee)}
                   </span>
                 </div>
@@ -129,7 +129,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     );
                     if (found) onSelectNeighborhood(found);
                   }}
-                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-amber-700/20 focus:border-amber-700 transition-colors"
+                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition-colors"
                 >
                   {PIRACICABA_NEIGHBORHOODS.map((n) => (
                     <option key={n.name} value={n.name}>
@@ -142,7 +142,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 </p>
               </div>
             ) : (
-              <div className="mt-2.5 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs text-amber-900">
+              <div className="mt-2.5 p-2.5 rounded-xl bg-orange-50/70 border border-orange-200/80 text-xs text-orange-950">
                 <span className="font-semibold block">Retirada sem taxa no restaurante:</span>
                 <span className="text-stone-700">{RESTAURANT_INFO.fullAddress}</span>
                 <span className="block text-[11px] text-stone-500 mt-0.5">Pronto em 15–25 minutos após confirmação.</span>
@@ -263,7 +263,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     placeholder="Cupom (ex: KAIPIRA10)"
                     value={inputCoupon}
                     onChange={(e) => setInputCoupon(e.target.value.toUpperCase())}
-                    className="w-full pl-8 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-lg text-xs uppercase font-medium focus:outline-none focus:border-amber-700"
+                    className="w-full pl-8 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-lg text-xs uppercase font-medium focus:outline-none focus:border-orange-600"
                   />
                 </div>
                 <button
@@ -304,7 +304,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 )}
                 <div className="flex justify-between text-sm font-bold text-stone-900 pt-1.5 border-t border-stone-200">
                   <span>Total</span>
-                  <span className="text-amber-950 font-display text-base tabular-nums">
+                  <span className="text-orange-950 font-display text-base tabular-nums font-extrabold">
                     {formatCurrency(finalTotal)}
                   </span>
                 </div>
@@ -313,7 +313,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               {/* Proceed CTA */}
               <button
                 onClick={onProceedToCheckout}
-                className="w-full py-3 px-4 bg-amber-800 hover:bg-amber-900 active:scale-98 text-white font-semibold text-sm rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 px-4 bg-orange-600 hover:bg-orange-700 active:scale-98 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Avançar para Pagamento</span>
                 <ArrowRight className="w-4 h-4" />
