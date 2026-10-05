@@ -9,8 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig(({ command }) => {
   return {
     // 👇 ALTERE ESTA LINHA: Coloque o nome exato do seu repositório entre as barras
-    base: 'delivery-kaipira', 
-    
+    base: '/delivery-kaipira/',    
     publicDir: 'public',
     plugins: [react(), tailwindcss()],
     resolve: {
