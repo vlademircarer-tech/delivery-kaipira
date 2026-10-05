@@ -111,7 +111,12 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
                     alt={item.name}
                     referrerPolicy="no-referrer"
                     onError={(e) => {
-                      (e.target as HTMLElement).style.display = 'none';
+                      const target = e.currentTarget;
+                      if (!target.src.includes('src/assets') && target.src.includes('images/')) {
+                        target.src = target.src.replace('images/', 'src/assets/images/');
+                      } else {
+                        target.style.display = 'none';
+                      }
                     }}
                     className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
                   />

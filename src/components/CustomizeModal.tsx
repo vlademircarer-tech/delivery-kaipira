@@ -154,6 +154,14 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
             src={item.image}
             alt={item.name}
             referrerPolicy="no-referrer"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.src.includes('src/assets') && target.src.includes('images/')) {
+                target.src = target.src.replace('images/', 'src/assets/images/');
+              } else {
+                target.style.display = 'none';
+              }
+            }}
             className="w-full h-full object-cover"
           />
           <button

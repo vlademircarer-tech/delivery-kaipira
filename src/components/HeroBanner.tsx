@@ -18,9 +18,16 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
       {/* Background Image with warm gradient overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/src/assets/images/hero_kaipira_buffet_1791158434539.jpg"
+          src="./images/hero_kaipira_buffet_1791158434539.jpg"
           alt="Restaurante Kaipira Piracicaba buffet e fogão a lenha"
           referrerPolicy="no-referrer"
+          onError={(e) => {
+            // Fallback if accessed via direct source
+            const target = e.currentTarget;
+            if (!target.src.includes('src/assets')) {
+              target.src = '/src/assets/images/hero_kaipira_buffet_1791158434539.jpg';
+            }
+          }}
           className="w-full h-full object-cover object-center opacity-35"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-stone-950 via-stone-950/85 to-stone-900/40" />
