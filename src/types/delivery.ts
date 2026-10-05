@@ -21,14 +21,14 @@ export interface MenuItem {
   category: 'executivos' | 'peixes' | 'tradicionais' | 'porcoes' | 'sobremesas' | 'bebidas';
   image: string;
   popular?: boolean;
-  serves: string; // ex: "1 a 2 pessoas"
-  prepTime: string; // ex: "20-30 min"
+  serves: string;
+  prepTime: string;
   removableIngredients?: string[];
   optionGroups?: CustomizationOptionGroup[];
 }
 
 export interface SelectedCustomizations {
-  selectedOptions: Record<string, string[]>; // groupId -> array of optionIds
+  selectedOptions: Record<string, string[]>;
   removedIngredients: string[];
   notes: string;
 }
@@ -50,19 +50,37 @@ export interface NeighborhoodDelivery {
 }
 
 export interface CustomerData {
+  id?: string;
   name: string;
   phone: string;
+  email?: string;
   deliveryType: 'delivery' | 'pickup';
+  cep: string;
   street: string;
   number: string;
   complement?: string;
   neighborhood: string;
   reference?: string;
   city: string;
-  cep: string;
+  state?: string;
 }
 
-export type PaymentMethod = 'pix' | 'credit_card' | 'debit_card' | 'cash';
+export type BasePaymentMethod = 'pix' | 'credit_card' | 'debit_card' | 'cash';
+export type PaymentMethod = BasePaymentMethod | 'split';
+
+export interface SinglePaymentConfig {
+  method: BasePaymentMethod;
+  amount: number;
+  cardBrand?: string;
+  cardTiming?: 'on_delivery' | 'online';
+  cashChangeFor?: number;
+  pixTxId?: string;
+}
+
+export interface SplitPaymentConfig {
+  part1: SinglePaymentConfig;
+  part2: SinglePaymentConfig;
+}
 
 export interface PaymentDetails {
   method: PaymentMethod;
@@ -70,9 +88,17 @@ export interface PaymentDetails {
   cardPaymentTiming?: 'on_delivery' | 'online';
   cashChangeFor?: number;
   pixTxId?: string;
+  split?: SplitPaymentConfig;
+  summaryText: string;
 }
 
-export type OrderStatus = 'received' | 'preparing' | 'dispatched' | 'delivered';
+export type OrderStatus = 'received' | 'preparing' | 'dispatched' | 'delivered' | 'cancelled';
+
+export interface OrderStatusUpdate {
+  status: OrderStatus;
+  timestamp: string;
+  message: string;
+}
 
 export interface Order {
   id: string;
@@ -87,10 +113,6 @@ export interface Order {
   total: number;
   payment: PaymentDetails;
   status: OrderStatus;
-  statusUpdates: {
-    status: OrderStatus;
-    timestamp: string;
-    message: string;
-  }[];
+  statusUpdates: OrderStatusUpdate[];
   syncedWithSupabase?: boolean;
 }

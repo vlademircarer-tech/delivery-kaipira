@@ -4,8 +4,9 @@ import { HeroBanner } from './components/HeroBanner';
 import { MenuSection } from './components/MenuSection';
 import { CustomizeModal } from './components/CustomizeModal';
 import { CartDrawer } from './components/CartDrawer';
-import { CheckoutModal } from './components/CheckoutModal';
+import { CheckoutPaymentPage } from './components/CheckoutPaymentPage';
 import { OrderConfirmationModal } from './components/OrderConfirmationModal';
+import { AdminPanelModal } from './components/AdminPanelModal';
 import { SupabaseConfigModal } from './components/SupabaseConfigModal';
 import { RestaurantInfoModal } from './components/RestaurantInfoModal';
 import { OrdersHistoryModal } from './components/OrdersHistoryModal';
@@ -13,36 +14,23 @@ import { Footer } from './components/Footer';
 
 import { MenuItem, CartItem, NeighborhoodDelivery, Order, OrderStatus } from './types/delivery';
 import { PIRACICABA_NEIGHBORHOODS } from './data/piracicabaNeighborhoods';
-import { persistOrder, getLocalOrders, saveLocalOrder } from './services/supabase';
+import { persistOrderInCloud, fetchCloudOrders, updateCloudOrderStatus } from './services/supabase';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
 import { formatCurrency } from './utils/formatters';
 
-const STORAGE_CART_KEY = 'kaipira_cart_items';
-const STORAGE_COUPON_KEY = 'kaipira_applied_coupon';
-
 export default function App() {
-  // Cart state
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_CART_KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
-    }
-  });
-
+  // Session memory only: Cart items (NO LOCALSTORAGE RECORDING AS INSTRUCTED)
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [deliveryType, setDeliveryType] = useState<'delivery' | 'pickup'>('delivery');
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<NeighborhoodDelivery>(
     PIRACICABA_NEIGHBORHOODS[0] // Piracicamirim default
   );
 
-  // Coupon state
-  const [couponCode, setCouponCode] = useState<string>(() => {
-    return localStorage.getItem(STORAGE_COUPON_KEY) || '';
-  });
+  // Session memory only: Coupon
+  const [couponCode, setCouponCode] = useState<string>('');
 
-  // Orders state
-  const [orders, setOrders] = useState<Order[]>(() => getLocalOrders());
+  // Orders loaded directly from Cloud (Supabase)
+  const [orders, setOrders] = useState<Order[]>([]);
   const [activeTrackingOrder, setActiveTrackingOrder] = useState<Order | null>(null);
 
   // Modal visibility states
@@ -51,18 +39,17 @@ export default function App() {
   const [customizingItem, setCustomizingItem] = useState<MenuItem | null>(null);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isSupabaseModalOpen, setIsSupabaseModalOpen] = useState(false);
   const [isRestaurantInfoOpen, setIsRestaurantInfoOpen] = useState(false);
   const [isOrdersHistoryOpen, setIsOrdersHistoryOpen] = useState(false);
 
-  // Persist cart to localStorage
+  // Load orders directly from Cloud on mount
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_CART_KEY, JSON.stringify(cartItems));
-    } catch (e) {
-      console.error('Falha ao sincronizar sacola:', e);
-    }
-  }, [cartItems]);
+    fetchCloudOrders().then((res) => {
+      setOrders(res.orders);
+    });
+  }, []);
 
   // Calculations
   const cartSubtotal = cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
@@ -73,10 +60,9 @@ export default function App() {
   const deliveryFee = deliveryType === 'delivery' ? selectedNeighborhood.fee : 0;
   const cartTotal = Math.max(0, cartSubtotal + deliveryFee - discountAmount);
 
-  // Cart operations
+  // Cart operations (Memory only)
   const handleAddToCart = (newItem: CartItem) => {
     setCartItems((prev) => {
-      // Check if exact same item with exact same customizations already in cart
       const existingIdx = prev.findIndex(
         (it) =>
           it.menuItem.id === newItem.menuItem.id &&
@@ -122,67 +108,43 @@ export default function App() {
     const clean = code.trim().toUpperCase();
     if (clean === 'KAIPIRA10') {
       setCouponCode('KAIPIRA10');
-      localStorage.setItem(STORAGE_COUPON_KEY, 'KAIPIRA10');
       return { success: true, message: 'Cupom KAIPIRA10 aplicado! 10% de desconto.' };
     }
     if (clean === 'PIRACICABA') {
       setCouponCode('PIRACICABA');
-      localStorage.setItem(STORAGE_COUPON_KEY, 'PIRACICABA');
       return { success: true, message: 'Cupom PIRACICABA aplicado! Frete com desconto especial.' };
     }
     return { success: false, message: 'Cupom inválido. Tente KAIPIRA10.' };
   };
 
-  // Open item customization modal
   const handleSelectItemForCustomization = (item: MenuItem) => {
     setCustomizingItem(item);
     setIsCustomizeOpen(true);
   };
 
-  // Checkout flow
   const handleProceedToCheckout = () => {
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
   };
 
+  // Order created -> Persists exclusively in cloud Supabase
   const handleOrderCreated = async (order: Order) => {
-    // Save locally and push to Supabase
-    await persistOrder(order);
+    await persistOrderInCloud(order);
 
     setOrders((prev) => [order, ...prev.filter((o) => o.id !== order.id)]);
     setActiveTrackingOrder(order);
 
-    // Clear cart
+    // Clear session cart
     setCartItems([]);
-    localStorage.removeItem(STORAGE_CART_KEY);
 
-    // Open confirmation
     setIsCheckoutOpen(false);
     setIsConfirmationOpen(true);
   };
 
-  const handleUpdateOrderStatus = (orderId: string, status: OrderStatus) => {
-    setOrders((prev) =>
-      prev.map((ord) => {
-        if (ord.id === orderId) {
-          const updated = {
-            ...ord,
-            status,
-            statusUpdates: [
-              ...ord.statusUpdates,
-              {
-                status,
-                timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-                message: `Status atualizado para: ${status}`,
-              },
-            ],
-          };
-          saveLocalOrder(updated);
-          return updated;
-        }
-        return ord;
-      })
-    );
+  const handleUpdateOrderStatus = async (orderId: string, status: OrderStatus) => {
+    await updateCloudOrderStatus(orderId, status);
+    const updated = await fetchCloudOrders();
+    setOrders(updated.orders);
 
     if (activeTrackingOrder && activeTrackingOrder.id === orderId) {
       setActiveTrackingOrder((prev) => (prev ? { ...prev, status } : null));
@@ -206,6 +168,7 @@ export default function App() {
         onOpenRestaurantInfo={() => setIsRestaurantInfoOpen(true)}
         onOpenSupabaseConfig={() => setIsSupabaseModalOpen(true)}
         onOpenOrdersHistory={() => setIsOrdersHistoryOpen(true)}
+        onOpenAdminPanel={() => setIsAdminOpen(true)}
         hasOrders={orders.length > 0}
       />
 
@@ -217,7 +180,7 @@ export default function App() {
           onOpenLocation={() => setIsRestaurantInfoOpen(true)}
         />
 
-        {/* Menu Section */}
+        {/* Menu Section with expanded beverages and food */}
         <MenuSection
           onSelectItemForCustomization={handleSelectItemForCustomization}
         />
@@ -229,7 +192,7 @@ export default function App() {
         onOpenSupabaseConfig={() => setIsSupabaseModalOpen(true)}
       />
 
-      {/* Mobile Floating Bottom Bar when Cart has items */}
+      {/* Mobile Floating Bottom Bar: "Ver Seu Pedido" */}
       {cartCount > 0 && !isCartOpen && !isCheckoutOpen && !isConfirmationOpen && (
         <div className="fixed bottom-0 inset-x-0 z-30 p-3 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-lg md:hidden">
           <button
@@ -243,7 +206,7 @@ export default function App() {
                   {cartCount}
                 </span>
               </div>
-              <span className="text-sm">Ver Sacola</span>
+              <span className="text-sm">Ver Seu Pedido</span>
             </div>
 
             <div className="flex items-center gap-1.5 font-bold tabular-nums text-sm">
@@ -265,6 +228,7 @@ export default function App() {
         onAddToCart={handleAddToCart}
       />
 
+      {/* Drawer renamed to Seu Pedido */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
@@ -281,7 +245,8 @@ export default function App() {
         discountAmount={discountAmount}
       />
 
-      <CheckoutModal
+      {/* Página de Pagamentos & Cadastro com Busca CEP */}
+      <CheckoutPaymentPage
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         onBackToCart={() => {
@@ -290,12 +255,15 @@ export default function App() {
         }}
         items={cartItems}
         deliveryType={deliveryType}
+        onSetDeliveryType={setDeliveryType}
         selectedNeighborhood={selectedNeighborhood}
+        onSelectNeighborhood={setSelectedNeighborhood}
         couponCode={couponCode}
         discountAmount={discountAmount}
         onOrderCreated={handleOrderCreated}
       />
 
+      {/* Confirmação e Acompanhamento de Pedido */}
       <OrderConfirmationModal
         order={activeTrackingOrder}
         isOpen={isConfirmationOpen}
@@ -304,6 +272,13 @@ export default function App() {
           setActiveTrackingOrder(null);
         }}
         onUpdateOrderStatus={handleUpdateOrderStatus}
+      />
+
+      {/* Painel Administrativo com Senha dndigqol e usuário admin */}
+      <AdminPanelModal
+        isOpen={isAdminOpen}
+        onClose={() => setIsAdminOpen(false)}
+        onRefreshOrders={() => fetchCloudOrders().then((r) => setOrders(r.orders))}
       />
 
       <SupabaseConfigModal

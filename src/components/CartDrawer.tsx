@@ -62,7 +62,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           <div className="p-5 bg-white border-b border-stone-200 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="font-display text-xl font-bold text-stone-900">
-                Sua Sacola
+                Seu Pedido
               </span>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 tabular-nums">
                 {items.length} {items.length === 1 ? 'item' : 'itens'}
@@ -72,7 +72,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             <button
               onClick={onClose}
               className="p-2 text-stone-500 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition-colors cursor-pointer"
-              aria-label="Fechar sacola"
+              aria-label="Fechar Seu Pedido"
             >
               <X className="w-5 h-5" />
             </button>
@@ -156,7 +156,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <div className="h-full flex flex-col items-center justify-center text-center p-6 text-stone-400">
                 <Store className="w-12 h-12 text-stone-300 mb-2 stroke-1" />
                 <p className="text-sm font-semibold text-stone-700">
-                  Sua sacola está vazia
+                  Seu pedido está vazio
                 </p>
                 <p className="text-xs text-stone-500 mt-1 max-w-xs">
                   Adicione pratos típicos caipiras, peixes na brasa ou marmitas executivas para começar.

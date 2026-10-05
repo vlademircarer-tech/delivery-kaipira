@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Database, Clock, MapPin, Phone } from 'lucide-react';
+import { ShoppingBag, Database, Clock, MapPin, Phone, Lock } from 'lucide-react';
 import { formatCurrency } from '../utils/formatters';
 import { isRestaurantOpen } from '../data/piracicabaNeighborhoods';
 
@@ -10,6 +10,7 @@ interface NavbarProps {
   onOpenRestaurantInfo: () => void;
   onOpenSupabaseConfig: () => void;
   onOpenOrdersHistory: () => void;
+  onOpenAdminPanel: () => void;
   hasOrders: boolean;
 }
 
@@ -20,6 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenRestaurantInfo,
   onOpenSupabaseConfig,
   onOpenOrdersHistory,
+  onOpenAdminPanel,
   hasOrders,
 }) => {
   const storeStatus = isRestaurantOpen();
@@ -43,7 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Zone 2: Clean text navigation links */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-stone-600">
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
           <a
             href="#cardapio"
             className="hover:text-amber-900 transition-colors whitespace-nowrap"
@@ -68,15 +70,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenSupabaseConfig}
             className="hover:text-amber-900 transition-colors cursor-pointer flex items-center gap-1.5 text-stone-500 hover:text-emerald-700 whitespace-nowrap"
-            title="Configuração do Banco de Dados Supabase"
+            title="Banco de Dados Supabase em Nuvem"
           >
             <Database className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Supabase / GitHub</span>
+            <span>Supabase / Nuvem</span>
           </button>
         </nav>
 
-        {/* Zone 3: Primary actions (Store state + Cart button) */}
-        <div className="flex items-center gap-3">
+        {/* Zone 3: Primary actions (Store state + Seu Pedido + Lock Icon) */}
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Quick status button */}
           <button
             onClick={onOpenRestaurantInfo}
@@ -96,11 +98,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
           </button>
 
-          {/* Cart button */}
+          {/* Cart button renamed to Seu Pedido */}
           <button
             onClick={onOpenCart}
-            className="relative flex items-center gap-2.5 px-4 py-2 bg-amber-800 hover:bg-amber-900 active:scale-98 text-white rounded-xl shadow-xs transition-all cursor-pointer"
-            aria-label="Abrir carrinho de compras"
+            className="relative flex items-center gap-2.5 px-3.5 sm:px-4 py-2 bg-amber-800 hover:bg-amber-900 active:scale-98 text-white rounded-xl shadow-xs transition-all cursor-pointer"
+            aria-label="Abrir Seu Pedido"
           >
             <div className="relative">
               <ShoppingBag className="w-5 h-5 text-amber-100" />
@@ -112,15 +114,26 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div className="hidden sm:flex flex-col text-left leading-none">
               <span className="text-[10px] uppercase tracking-wider text-amber-200 font-semibold">
-                Sacola
+                Seu Pedido
               </span>
               <span className="text-sm font-semibold tabular-nums">
                 {cartTotal > 0 ? formatCurrency(cartTotal) : 'R$ 0,00'}
               </span>
             </div>
           </button>
+
+          {/* Lock Icon for Admin Panel on top right corner */}
+          <button
+            onClick={onOpenAdminPanel}
+            className="p-2 sm:p-2.5 text-stone-600 hover:text-amber-950 hover:bg-stone-200/60 rounded-xl transition-colors cursor-pointer border border-stone-200/80"
+            title="Painel Administrativo (Acesso Restrito)"
+            aria-label="Painel Administrativo"
+          >
+            <Lock className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-stone-700 hover:text-amber-900" />
+          </button>
         </div>
       </div>
     </header>
   );
 };
+

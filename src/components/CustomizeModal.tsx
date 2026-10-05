@@ -355,7 +355,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
             onClick={handleConfirmAddToCart}
             className="flex-1 py-3 px-5 bg-amber-800 hover:bg-amber-900 active:scale-98 text-white font-semibold text-sm rounded-xl transition-all shadow-xs flex items-center justify-between cursor-pointer"
           >
-            <span>Adicionar à Sacola</span>
+            <span>Adicionar ao Pedido</span>
             <span className="tabular-nums font-bold">
               {formatCurrency(totalPrice)}
             </span>
